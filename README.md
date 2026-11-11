@@ -2,6 +2,8 @@
 
 A Windows 11 desktop calendar that shows the official Government of India holidays and lets you keep your own events with reminders.
 
+> **Disclaimer:** Bharat Calendar is an independent, unofficial project. It is not affiliated with, endorsed by, or connected to the Government of India or any of its departments. Holiday dates are taken from publicly available DoPT orders and may contain errors or change (for example, when festival dates depend on the sighting of the moon). Check official sources for anything important.
+
 ## Features
 
 - **Official holidays.** Gazetted and restricted holidays from the Department of Personnel & Training (DoPT) lists for 2026 and 2027. They cover national days and festivals of all religions and regions: Hindu, Muslim, Christian, Sikh, Jain, Buddhist and Parsi festivals, plus regional ones such as Pongal, Bihu, Onam, Ugadi, Vaisakhi and Chhath.
@@ -67,3 +69,11 @@ Set the environment variable `BHARATCAL_DATA` to a folder path to use separate t
 ## Holiday data sources
 
 DoPT Office Memoranda F.No.12/2/2023-JCA dated 03.07.2025 (holidays for 2026) and 16.07.2026 (holidays for 2027).
+
+## Privacy
+
+The app collects no data. Your events and settings are stored only on your own PC, in `%APPDATA%\BharatCalendar`. The app doesn't connect to the internet, and it has no accounts, analytics or tracking.
+
+## License
+
+[MIT](LICENSE). The installer bundles the .NET runtime (also MIT) and is built with Inno Setup; see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

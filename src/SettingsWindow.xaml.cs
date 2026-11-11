@@ -42,7 +42,8 @@ public partial class SettingsWindow : Window
             : $"{h.Count} official holidays loaded for {string.Join(", ", years)}. " +
               "Other years show only the fixed-date national holidays (Republic Day, Independence Day, " +
               "Gandhi Jayanti, Christmas) until you import that year's list.";
-        SourceInfo.Text = _store.HolidaySource;
+        SourceInfo.Text = _store.HolidaySource +
+            "\nBharat Calendar is an unofficial app and is not affiliated with or endorsed by the Government of India.";
     }
 
     void Theme_Changed(object sender, SelectionChangedEventArgs e)
