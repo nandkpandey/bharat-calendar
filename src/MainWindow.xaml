@@ -1,0 +1,149 @@
+<Window x:Class="BharatCalendar.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BharatCalendar"
+        Title="Bharat Calendar" Width="1240" Height="800" MinWidth="960" MinHeight="620"
+        WindowStartupLocation="CenterScreen" Icon="app.ico"
+        Background="{DynamicResource Bg}" Foreground="{DynamicResource Text}"
+        FontFamily="{StaticResource UiFont}" FontSize="13"
+        UseLayoutRounding="True" TextOptions.TextFormattingMode="Display">
+
+    <Window.Resources>
+        <DataTemplate x:Key="DayItemTemplate" DataType="{x:Type local:DayItem}">
+            <Border Style="{StaticResource ItemCard}" MouseLeftButtonUp="Item_Click">
+                <DockPanel>
+                    <Border Width="4" CornerRadius="2" Background="{Binding Accent}" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Subtitle}" FontSize="12" Foreground="{DynamicResource SubText}"
+                                   TextWrapping="Wrap" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="UpcomingTemplate" DataType="{x:Type local:DayItem}">
+            <Border Style="{StaticResource ItemCard}" MouseLeftButtonUp="Item_Click">
+                <DockPanel>
+                    <Border Width="4" CornerRadius="2" Background="{Binding Accent}" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding WhenText}" DockPanel.Dock="Right" FontSize="11" Margin="8,2,0,0"
+                               Foreground="{DynamicResource SubText}" VerticalAlignment="Top"/>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding DatedSubtitle}" FontSize="12" Foreground="{DynamicResource SubText}"
+                                   TextWrapping="Wrap" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="370"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Calendar -->
+        <Grid Margin="24,14,16,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <ComboBox x:Name="MonthCombo" Width="128" SelectionChanged="Jump_Changed" ToolTip="Month"/>
+                    <ComboBox x:Name="YearCombo" Width="92" Margin="6,0,12,0" SelectionChanged="Jump_Changed" ToolTip="Year"/>
+                    <Button Content="Today" Click="Today_Click" ToolTip="Go to today (Home)"/>
+                    <Button Style="{StaticResource IconButton}" Content="&#xE76B;" Margin="6,0,0,0" Click="Prev_Click" ToolTip="Previous month (Page Up)"/>
+                    <Button Style="{StaticResource IconButton}" Content="&#xE76C;" Click="Next_Click" ToolTip="Next month (Page Down)"/>
+                    <Button x:Name="ThemeButton" Style="{StaticResource IconButton}" Content="&#xE706;" Margin="8,0,0,0" Click="Theme_Click" ToolTip="Switch light / dark"/>
+                    <Button Style="{StaticResource IconButton}" Content="&#xE713;" Click="Settings_Click" ToolTip="Settings"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="MonthTitle" FontSize="28" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="MonthSubtitle" FontSize="12" Foreground="{DynamicResource SubText}" Margin="1,0,0,0"
+                               TextWrapping="Wrap" MaxWidth="420" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </DockPanel>
+
+            <UniformGrid x:Name="WeekHeader" Grid.Row="1" Columns="7" Margin="0,14,0,4"/>
+            <UniformGrid x:Name="DayGrid" Grid.Row="2" Rows="6" Columns="7" PreviewMouseWheel="DayGrid_MouseWheel"/>
+
+            <WrapPanel Grid.Row="3" Margin="4,12,0,0">
+                <CheckBox x:Name="GazettedFilter" Click="Filter_Click" Margin="0,0,22,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="3" Background="{DynamicResource GazFg}" Margin="0,0,6,0"/>
+                        <TextBlock Text="Gazetted holidays"/>
+                    </StackPanel>
+                </CheckBox>
+                <CheckBox x:Name="RestrictedFilter" Click="Filter_Click" Margin="0,0,22,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="3" Background="{DynamicResource ResFg}" Margin="0,0,6,0"/>
+                        <TextBlock Text="Restricted holidays"/>
+                    </StackPanel>
+                </CheckBox>
+                <CheckBox x:Name="EventsFilter" Click="Filter_Click" Margin="0,0,22,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="3" Background="#2563EB" Margin="0,0,6,0"/>
+                        <TextBlock Text="My events"/>
+                    </StackPanel>
+                </CheckBox>
+            </WrapPanel>
+        </Grid>
+
+        <!-- Side panel -->
+        <Border Grid.Column="1" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}" BorderThickness="1,0,0,0">
+            <Grid Margin="20,18,14,16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Margin="0,0,6,0">
+                    <TextBox x:Name="SearchBox" Padding="32,7,8,7" TextChanged="Search_Changed"/>
+                    <TextBlock Text="&#xE721;" FontFamily="{StaticResource IconFont}" Foreground="{DynamicResource SubText}"
+                               VerticalAlignment="Center" Margin="11,0,0,0" IsHitTestVisible="False"/>
+                    <TextBlock x:Name="SearchHint" Text="Search festivals and events  (Ctrl+F)" Foreground="{DynamicResource SubText}"
+                               VerticalAlignment="Center" Margin="34,0,0,0" IsHitTestVisible="False"/>
+                </Grid>
+
+                <StackPanel Grid.Row="1" Margin="0,22,6,10">
+                    <TextBlock x:Name="SelDayName" FontSize="13" Foreground="{DynamicResource Accent}" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="SelDate" FontSize="24" FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <Grid Grid.Row="2">
+                    <ScrollViewer MaxHeight="230" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,6,0">
+                        <ItemsControl x:Name="SelList" ItemTemplate="{StaticResource DayItemTemplate}"/>
+                    </ScrollViewer>
+                    <TextBlock x:Name="SelEmpty" TextWrapping="Wrap" Foreground="{DynamicResource SubText}" Margin="0,0,6,4"
+                               Text="Nothing on this day. Double-click a date or press Ctrl+N to add an event."/>
+                </Grid>
+
+                <Button Grid.Row="3" Style="{StaticResource AccentButton}" Margin="0,8,6,0" Padding="14,9" Click="AddEvent_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE710;" FontFamily="{StaticResource IconFont}" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="Add event"/>
+                    </StackPanel>
+                </Button>
+
+                <TextBlock x:Name="ListHeader" Grid.Row="4" FontSize="15" FontWeight="SemiBold" Margin="0,26,0,10"/>
+
+                <Grid Grid.Row="5">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,6,0">
+                        <ItemsControl x:Name="UpcomingList" ItemTemplate="{StaticResource UpcomingTemplate}"/>
+                    </ScrollViewer>
+                    <TextBlock x:Name="ListEmpty" Text="No results." Foreground="{DynamicResource SubText}" VerticalAlignment="Top"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

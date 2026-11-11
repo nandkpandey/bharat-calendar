@@ -1,0 +1,40 @@
+<Window x:Class="BharatCalendar.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" Width="500" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Icon="app.ico"
+        Background="{DynamicResource Surface}" Foreground="{DynamicResource Text}"
+        FontFamily="{StaticResource UiFont}" FontSize="13" UseLayoutRounding="True">
+    <StackPanel Margin="26,18,26,22">
+        <TextBlock Text="Settings" FontSize="20" FontWeight="SemiBold"/>
+
+        <TextBlock Style="{StaticResource FieldLabel}" Text="APPEARANCE" Margin="0,18,0,8"/>
+        <DockPanel>
+            <ComboBox x:Name="ThemeBox" Width="140" DockPanel.Dock="Right" SelectionChanged="Theme_Changed"/>
+            <TextBlock Text="Theme" VerticalAlignment="Center"/>
+        </DockPanel>
+        <CheckBox x:Name="MondayBox" Content="Start the week on Monday" Margin="0,14,0,0" Click="Option_Click"/>
+
+        <TextBlock Style="{StaticResource FieldLabel}" Text="REMINDERS" Margin="0,22,0,8"/>
+        <CheckBox x:Name="HolidayRemBox" Content="Notify me the evening before a gazetted holiday" Click="Option_Click"/>
+        <CheckBox x:Name="TrayBox" Content="Keep running in the system tray when the window is closed" Margin="0,12,0,0" Click="Option_Click"/>
+        <CheckBox x:Name="StartupBox" Content="Start Bharat Calendar when I sign in to Windows" Margin="0,12,0,0" Click="Option_Click"/>
+        <TextBlock Text="Reminders only appear while the app is running (in the window or the tray)."
+                   FontSize="12" Foreground="{DynamicResource SubText}" Margin="26,6,0,0" TextWrapping="Wrap"/>
+
+        <TextBlock Style="{StaticResource FieldLabel}" Text="HOLIDAY DATA" Margin="0,22,0,8"/>
+        <TextBlock x:Name="HolidayInfo" TextWrapping="Wrap"/>
+        <TextBlock x:Name="SourceInfo" TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource SubText}" Margin="0,6,0,0"/>
+        <WrapPanel Margin="0,12,0,0">
+            <Button Content="Import holiday list…" Click="Import_Click" Margin="0,0,8,8"/>
+            <Button Content="Export to .ics…" Click="Export_Click" Margin="0,0,8,8"
+                    ToolTip="Save holidays and your events for Outlook or Google Calendar"/>
+            <Button Content="Open data folder" Click="OpenFolder_Click" Margin="0,0,8,8"/>
+        </WrapPanel>
+        <TextBlock FontSize="12" Foreground="{DynamicResource SubText}" TextWrapping="Wrap" Margin="0,2,0,0"
+                   Text="When the government publishes a new year's list, import it as a JSON file in this format: { &quot;holidays&quot;: [ { &quot;date&quot;: &quot;2028-01-26&quot;, &quot;name&quot;: &quot;Republic Day&quot;, &quot;type&quot;: &quot;gazetted&quot;, &quot;tradition&quot;: &quot;National&quot; } ] }. Use &quot;restricted&quot; for restricted holidays."/>
+
+        <Button Content="Done" Style="{StaticResource AccentButton}" IsDefault="True" IsCancel="True"
+                HorizontalAlignment="Right" MinWidth="96" Margin="0,22,0,0" Click="Done_Click"/>
+    </StackPanel>
+</Window>
