@@ -12,6 +12,9 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
     <Version>1.0.0</Version>
     <Product>Bharat Calendar</Product>
+    <Authors>Nand Kishor Pandey</Authors>
+    <Company>Nand Kishor Pandey</Company>
+    <Copyright>Copyright (c) 2026 Nand Kishor Pandey</Copyright>
     <Description>Calendar with Indian government holidays and personal events</Description>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
