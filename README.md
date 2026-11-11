@@ -2,6 +2,10 @@
 
 A Windows 11 desktop calendar that shows the official Government of India holidays and lets you keep your own events with reminders.
 
+[![Download for Windows](https://img.shields.io/badge/Download%20for%20Windows-v1.0.0%20%C2%B7%2058%20MB-D9480F?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/nandkpandey/bharat-calendar/releases/latest/download/BharatCalendar-Setup-1.0.0.exe)
+
+Free · Windows 10 (1809+) / Windows 11, 64-bit · No admin rights or .NET install needed · [All releases](https://github.com/nandkpandey/bharat-calendar/releases)
+
 > **Disclaimer:** Bharat Calendar is an independent, unofficial project. It is not affiliated with, endorsed by, or connected to the Government of India or any of its departments. Holiday dates are taken from publicly available DoPT orders and may contain errors or change (for example, when festival dates depend on the sighting of the moon). Check official sources for anything important.
 
 ## Features
@@ -17,7 +21,21 @@ A Windows 11 desktop calendar that shows the official Government of India holida
 
 ## Install
 
-Download `BharatCalendar-Setup-x.y.z.exe` from [Releases](../../releases) and run it. Admin rights aren't needed, and the .NET runtime is bundled. Requires 64-bit Windows 10 (1809) or Windows 11.
+1. **Download** the installer with the button above, or from [Releases](https://github.com/nandkpandey/bharat-calendar/releases/latest).
+   - If **Edge** says the file *"isn't commonly downloaded"*, click **⋯ → Keep → Show more → Keep anyway**.
+   - If **Chrome** says *"Download suspicious file?"*, click **Keep**.
+2. **Run** `BharatCalendar-Setup-1.0.0.exe`. If Windows shows *"Windows protected your PC"*, click **More info → Run anyway**.
+   These warnings appear because the installer isn't code-signed, not because anything is wrong with it.
+3. **Follow the setup wizard:** accept the license, choose a folder (the default is fine), and optionally tick
+   **Create a desktop shortcut** and **Start Bharat Calendar when I sign in** (needed for reminders). Then click **Install**.
+4. **Open it** from the Start menu under **Bharat Calendar**.
+
+Admin rights aren't needed, and .NET is bundled, so there's nothing else to install.
+
+**Updating:** download and run the newer installer. It installs over the old version and keeps your events.
+
+**Uninstalling:** go to **Settings → Apps → Installed apps → Bharat Calendar → ⋯ → Uninstall**. Your events stay in
+`%APPDATA%\BharatCalendar` in case you reinstall; delete that folder to remove them completely.
 
 ## Adding holidays for a new year
 
